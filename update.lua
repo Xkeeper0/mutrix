@@ -6,6 +6,12 @@ function updatePlayer(dt)
 		play_x = play_x+1
 		if play_x == 16 then
 			play_x = 0
+
+			-- Prevent the song from continuing to play if the song has been deleted (causes crash)
+			if song_len == 0 then
+				state 	= 1;		-- Reset state to normal playing
+			end;
+
 			if state == 2 then
 				song_sel = (song_sel+1)%song_len
 				pat = song[song_sel]
@@ -253,6 +259,7 @@ function songKeyPressed(k,unicode)
 	end
 end
 
+
 function keyPressedSave(k,uni)
 	if uni >= 0x21 and uni <= 0x7A then
 		filename = filename:sub(1,caret) .. string.char(uni) .. filename:sub(caret+1)
@@ -276,6 +283,8 @@ function keyPressedSave(k,uni)
 		end
 	elseif k == 'return' then
 		writeToMidi()
+		state = 1
+	elseif k == 'escape' then	-- Cancel
 		state = 1
 	end
 end

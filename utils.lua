@@ -30,6 +30,12 @@ function loadResources()
 	for i=0,15 do
 		tempo[i] = MIN_TEMPO - i*((MIN_TEMPO-MAX_TEMPO)/16)
 	end
+	
+	-- Lowering volume temporarily
+	-- All of the clips are at full-volume and having > 1 playing at once will lead to clipping
+	-- Should be reworked into a volume bar at a later time	
+	love.audio.setVolume( 0.25 );
+	
 end
 
 function createNewPattern()
@@ -142,6 +148,7 @@ function createQuads()
 	quad = {}
 	for iy=0,7 do
 		for ix=0,7 do
+			-- TODO: Rewrite to use a [x][y] (or similar) system so that coordinates can go over 8x8		
 			quad[ix+iy*8] = love.graphics.newQuad(ix*CELLW,iy*CELLH,CELLW,CELLH,imgTiles:getWidth(),imgTiles:getHeight())
 		end
 	end

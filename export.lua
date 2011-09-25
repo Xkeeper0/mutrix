@@ -2,7 +2,7 @@
 -- TODO: Make this take a filename as an argument
 function writeToMidi()
 
-	-- Should not be a global
+	-- If a blank file name was entered, cancel
 	if string.len(filename) == 0 then
 		return;
 	end;
