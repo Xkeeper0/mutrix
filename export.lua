@@ -1,4 +1,12 @@
+
+-- TODO: Make this take a filename as an argument
 function writeToMidi()
+
+	-- Should not be a global
+	if string.len(filename) == 0 then
+		return;
+	end;
+
 	local MIDI = require("MIDI")
 
 	local tempo = wait*1000000
